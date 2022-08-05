@@ -1,0 +1,11 @@
+{
+  "Name": "Velentr.BASE",
+  "DefaultName": "<ParentDir>.",
+  "Version": "1.0.0",
+  "Description": "A generic library that doesn't require specific support for FNA or Monogame.",
+  "Guids": 5,
+  "ExtraReplaceText": {},
+  "Commands": [],
+  "ExcludedDirectories": [".git", ".vs"],
+  "OnlyRenameDirectories": []
+}

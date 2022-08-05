@@ -1,0 +1,11 @@
+{
+  "Name": "Velentr.BASE_DUAL_SUPPORT",
+  "DefaultName": "<ParentDir>.",
+  "Version": "1.1",
+  "Description": "A library with individual implementations for FNA and Monogame.",
+  "Guids": 11,
+  "ExtraReplaceText": {"Velentr.BASE": "<ProjectName>", "Velentr.DUAL_SUPPORT": "<ProjectName>"},
+  "Commands": ["git submodule add https://github.com/FNA-XNA/FNA.git FNA/FNA", "git submodule update --init --recursive"],
+  "ExcludedDirectories": [".git", ".vs"],
+  "OnlyRenameDirectories": ["Velentr.BASE.FNA.DevEnv", "Velentr.BASE.Monogame.DevEnv"]
+}

@@ -1,0 +1,94 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{GUID01}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		CODEOWNERS = CODEOWNERS
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MONOGAME", "MONOGAME", "{GUID02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FNA", "FNA", "{GUID03}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.Monogame", "Monogame\Velentr.BASE.Monogame\Velentr.BASE.Monogame.csproj", "{GUID04}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.FNA", "FNA\Velentr.BASE.FNA\Velentr.BASE.FNA.csproj", "{GUID05}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CoreDev", "CoreDev\CoreDev.shproj", "{GUID06}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Velentr.BASE", "Velentr.BASE\Velentr.BASE.shproj", "{GUID09}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNA.Core", "FNA\FNA\FNA.Core.csproj", "{GUID10}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Velentr.BASE\Velentr.BASE.projitems*{GUID04}*SharedItemsImports = 5
+		CoreDev\CoreDev.projitems*{GUID06}*SharedItemsImports = 13
+		Velentr.BASE\Velentr.BASE.projitems*{GUID09}*SharedItemsImports = 13
+		CoreDev\CoreDev.projitems*{GUID08}*SharedItemsImports = 5
+		Velentr.BASE\Velentr.BASE.projitems*{GUID05}*SharedItemsImports = 5
+		CoreDev\CoreDev.projitems*{GUID07}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{GUID04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{GUID04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{GUID04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{GUID04}.Debug|x64.Build.0 = Debug|Any CPU
+		{GUID04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{GUID04}.Debug|x86.Build.0 = Debug|Any CPU
+		{GUID04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{GUID04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{GUID04}.Release|x64.ActiveCfg = Release|Any CPU
+		{GUID04}.Release|x64.Build.0 = Release|Any CPU
+		{GUID04}.Release|x86.ActiveCfg = Release|Any CPU
+		{GUID04}.Release|x86.Build.0 = Release|Any CPU
+		{GUID05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{GUID05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{GUID05}.Debug|x64.ActiveCfg = Debug|x64
+		{GUID05}.Debug|x64.Build.0 = Debug|x64
+		{GUID05}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{GUID05}.Debug|x86.Build.0 = Debug|Any CPU
+		{GUID05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{GUID05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{GUID05}.Release|x64.ActiveCfg = Release|x64
+		{GUID05}.Release|x64.Build.0 = Release|x64
+		{GUID05}.Release|x86.ActiveCfg = Release|Any CPU
+		{GUID05}.Release|x86.Build.0 = Release|Any CPU
+		{GUID10}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{GUID10}.Debug|Any CPU.Build.0 = Debug|x64
+		{GUID10}.Debug|x64.ActiveCfg = Debug|x64
+		{GUID10}.Debug|x64.Build.0 = Debug|x64
+		{GUID10}.Debug|x86.ActiveCfg = Debug|x64
+		{GUID10}.Debug|x86.Build.0 = Debug|x64
+		{GUID10}.Release|Any CPU.ActiveCfg = Release|x64
+		{GUID10}.Release|Any CPU.Build.0 = Release|x64
+		{GUID10}.Release|x64.ActiveCfg = Release|x64
+		{GUID10}.Release|x64.Build.0 = Release|x64
+		{GUID10}.Release|x86.ActiveCfg = Release|x64
+		{GUID10}.Release|x86.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{GUID04} = {GUID02}
+		{GUID05} = {GUID03}
+		{GUID10} = {GUID03}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {GUID11}
+	EndGlobalSection
+EndGlobal
