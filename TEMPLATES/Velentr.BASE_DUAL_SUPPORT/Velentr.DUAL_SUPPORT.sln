@@ -15,23 +15,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MONOGAME", "MONOGAME", "{GU
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FNA", "FNA", "{GUID03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.Monogame", "Monogame\Velentr.BASE.Monogame\Velentr.BASE.Monogame.csproj", "{GUID04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].Monogame", "Monogame\[SOLUTIONNAME].Monogame\[SOLUTIONNAME].Monogame.csproj", "{GUID04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.FNA", "FNA\Velentr.BASE.FNA\Velentr.BASE.FNA.csproj", "{GUID05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].FNA", "FNA\[SOLUTIONNAME].FNA\[SOLUTIONNAME].FNA.csproj", "{GUID05}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CoreDev", "CoreDev\CoreDev.shproj", "{GUID06}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Velentr.BASE", "Velentr.BASE\Velentr.BASE.shproj", "{GUID09}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "[SOLUTIONNAME]", "[SOLUTIONNAME]\[SOLUTIONNAME].shproj", "{GUID09}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNA.Core", "FNA\FNA\FNA.Core.csproj", "{GUID10}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Velentr.BASE\Velentr.BASE.projitems*{GUID04}*SharedItemsImports = 5
+		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID04}*SharedItemsImports = 5
 		CoreDev\CoreDev.projitems*{GUID06}*SharedItemsImports = 13
-		Velentr.BASE\Velentr.BASE.projitems*{GUID09}*SharedItemsImports = 13
+		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID09}*SharedItemsImports = 13
 		CoreDev\CoreDev.projitems*{GUID08}*SharedItemsImports = 5
-		Velentr.BASE\Velentr.BASE.projitems*{GUID05}*SharedItemsImports = 5
+		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID05}*SharedItemsImports = 5
 		CoreDev\CoreDev.projitems*{GUID07}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

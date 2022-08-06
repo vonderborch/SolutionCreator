@@ -3,10 +3,37 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RollForward>Major</RollForward>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <TieredCompilation>false</TieredCompilation>
+    <Version>2.0.0</Version>
+    <FileVersion>2.0.0</FileVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\Velentr.BASE.zip" />
+    <None Remove="Templates\Velentr.BASE_DUAL_SUPPORT.zip" />
+    <None Remove="Templates\Velentr.GENERIC_DUAL_SUPPORT.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Templates\Velentr.BASE.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Velentr.BASE_DUAL_SUPPORT.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\Velentr.GENERIC_DUAL_SUPPORT.zip">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="6.0.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SolutionCreator.Core\SolutionCreator.Core.csproj" />

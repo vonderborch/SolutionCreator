@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Velentr.BASE</AssemblyName>
-    <RootNamespace>Velentr.BASE</RootNamespace>
-    <Authors>Christian Webber</Authors>
-    <Company>Christian Webber</Company>
-    <RepositoryUrl>https://github.com/vonderborch/Velentr.BASE</RepositoryUrl>
-    <PackageTags></PackageTags>
-    <Description>A library to </Description>
+    <AssemblyName>[SOLUTIONNAME]</AssemblyName>
+    <RootNamespace>[SOLUTIONNAME]</RootNamespace>
+    <Authors>[AUTHOR]</Authors>
+    <Company>[COMPANY]</Company>
+    <RepositoryUrl>https://github.com/vonderborch/[SOLUTIONNAME]</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/vonderborch/[SOLUTIONNAME]</PackageProjectUrl>
+    <PackageTags>[TAGS]</PackageTags>
+    <Description>[DESCRIPTION]</Description>
+    <PackageLicenseExpression>[LICENSE]</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
-    <PackageProjectUrl>https://github.com/vonderborch/Velentr.BASE</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>[VERSION]</Version>
+    <FileVersion>[VERSION]</FileVersion>
+    <AssemblyVersion>[VERSION]</AssemblyVersion>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
@@ -19,14 +21,6 @@
     <DefineConstants>TRACE;GENERIC</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>GENERIC</DefineConstants>
-    <OutputPath>..\release\GENERIC\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DefineConstants>GENERIC</DefineConstants>
-    <OutputPath>..\release\GENERIC\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DefineConstants>GENERIC</DefineConstants>
     <OutputPath>..\release\GENERIC\</OutputPath>
   </PropertyGroup>

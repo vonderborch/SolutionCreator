@@ -1,21 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Velentr.BASE.FNA</AssemblyName>
-    <RootNamespace>Velentr.BASE</RootNamespace>
+    <AssemblyName>[SOLUTIONNAME].FNA</AssemblyName>
+    <RootNamespace>[SOLUTIONNAME]</RootNamespace>
     <Platforms>x64</Platforms>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Christian Webber</Authors>
-    <Company>Christian Webber</Company>
-    <RepositoryUrl>https://github.com/vonderborch/Velentr.BASE</RepositoryUrl>
-    <PackageTags>FNA, </PackageTags>
-    <Description>A library to </Description>
-    <Version>1.0.0</Version>
-    <PackageProjectUrl>https://github.com/vonderborch/Velentr.BASE</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>[AUTHOR]</Authors>
+    <Company>[COMPANY]</Company>
+    <RepositoryUrl>https://github.com/vonderborch/[SOLUTIONNAME]</RepositoryUrl>
+    <PackageTags>[TAGS]</PackageTags>
+    <Description>[DESCRIPTION]</Description>
+    <PackageLicenseExpression>[LICENSE]</PackageLicenseExpression>
+    <Version>[VERSION]</Version>
+    <FileVersion>[VERSION]</FileVersion>
+    <AssemblyVersion>[VERSION]</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/vonderborch/[SOLUTIONNAME]</PackageProjectUrl>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\fnalibs\x64\FAudio.dll" Link="FAudio.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\FNA3D.dll" Link="FNA3D.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\libtheorafile.dll" Link="libtheorafile.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\SDL2.dll" Link="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>TRACE;FNA</DefineConstants>
     <PlatformTarget>x64</PlatformTarget>
@@ -26,10 +42,7 @@
     <OutputPath>..\..\release\FNA\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fnalibs" Version="21.7.0" developmentDependency="true" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\FNA\FNA.Core.csproj" PrivateAssets="All" />
   </ItemGroup>
-  <Import Project="..\..\Velentr.BASE\Velentr.BASE.projitems" Label="Shared" />
+  <Import Project="..\..\[SOLUTIONNAME]\[SOLUTIONNAME].projitems" Label="Shared" />
 </Project>

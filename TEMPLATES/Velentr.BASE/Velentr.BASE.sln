@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE", "Velentr.BASE\Velentr.BASE.csproj", "{GUID02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME]", "[SOLUTIONNAME]\[SOLUTIONNAME].csproj", "{GUID02}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.Test", "Velentr.BASE.Test\Velentr.BASE.Test.csproj", "{GUID03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].Test", "[SOLUTIONNAME].Test\[SOLUTIONNAME].Test.csproj", "{GUID03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Velentr.BASE.Dev", "Velentr.BASE.Dev\Velentr.BASE.Dev.csproj", "{GUID04}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].Dev", "[SOLUTIONNAME].Dev\[SOLUTIONNAME].Dev.csproj", "{GUID04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

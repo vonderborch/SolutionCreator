@@ -1,17 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Velentr.BASE.Monogame</AssemblyName>
-    <RootNamespace>Velentr.BASE</RootNamespace>
+    <AssemblyName>[SOLUTIONNAME].Monogame</AssemblyName>
+    <RootNamespace>[SOLUTIONNAME]</RootNamespace>
     <Authors>Christian Webber</Authors>
     <Company>Christian Webber</Company>
-    <RepositoryUrl>https://github.com/vonderborch/Velentr.BASE</RepositoryUrl>
-    <PackageTags>Monogame, </PackageTags>
-    <Description>A library to </Description>
+    <RepositoryUrl>https://github.com/vonderborch/[SOLUTIONNAME]</RepositoryUrl>
+    <PackageTags>[TAGS]</PackageTags>
+    <Description>[DESCRIPTION]</Description>
+    <PackageLicenseExpression>[LICENSE]</PackageLicenseExpression>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
-    <PackageProjectUrl>https://github.com/vonderborch/Velentr.BASE</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>[VERSION]</Version>
+    <FileVersion>[VERSION]</FileVersion>
+    <AssemblyVersion>[VERSION]</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/vonderborch/[SOLUTIONNAME]</PackageProjectUrl>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
@@ -31,9 +33,9 @@
     <OutputPath>..\..\release\Monogame\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641">
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <Import Project="..\..\Velentr.BASE\Velentr.BASE.projitems" Label="Shared" />
+  <Import Project="..\..\[SOLUTIONNAME]\[SOLUTIONNAME].projitems" Label="Shared" />
 </Project>

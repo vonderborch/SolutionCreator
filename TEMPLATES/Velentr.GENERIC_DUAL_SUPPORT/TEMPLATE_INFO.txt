@@ -1,11 +1,26 @@
 {
   "Name": "Velentr.GENERIC_DUAL_SUPPORT",
-  "DefaultName": "<ParentDir>.",
-  "Version": "1.1",
-  "Description": "A library with individual implementations for FNA and Monogame as well as a generic implementation.",
+  "TemplateAuthor": "Christian Webber",
+  "TemplateVersion": "2.0",
+  "Description": "A library with individual extensions for FNA and Monogame as well as a generic implementation.",
+  
+  "DefaultAuthor": "<CurrentFullName>",
+  "DefaultCompanyName": "<CurrentFullName>",
+  "DefaultName": "GenericLibrary",
+  "DefaultNameFormat": "<ParentDir>.",
+
+  "AskForNugetInfo": true,
+  "DefaultNugetDescription": "A library",
+  "DefaultNugetTags": "",
+  "DefaultNugetLicense": "MIT",
+  
   "Guids": 12,
-  "ExtraReplaceText": {"Velentr.BASE": "<ProjectName>", "Velentr.BASE_DUAL_SUPPORT": "<ProjectName>"},
-  "Commands": ["git submodule add https://github.com/FNA-XNA/FNA.git FNA/FNA", "git submodule update --init --recursive"],
   "ExcludedDirectories": [".git", ".vs"],
-  "OnlyRenameDirectories": ["Velentr.BASE.FNA.DevEnv", "Velentr.BASE.Monogame.DevEnv"]
+  "ReplaceText": {"Velentr.BASE": "<ProjectName>", "Velentr.BASE_DUAL_SUPPORT": "<ProjectName>"},
+  "CleanupDirectories": [],
+  "RenameOnlyDirectories": ["Velentr.BASE.FNA.DevEnv", "Velentr.BASE.Monogame.DevEnv", "fna_updater"],
+  "RenameOnlyFiles": ["install_fna.bat", "update_fna.bat"],
+  "CommandsRequireGit": true,
+  "Commands": [".\\install_fna.bat"],
+  "Instructions": ["The Monogame.DevEnv and FNA.DevEnv projects have not been linked fully due to unresolved issues automating this step. Please do so when opening the solution for the first time!", "To update FNA, run the update_fna.bat script"]
 }

@@ -3,26 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Christian Webber</Authors>
-    <Company>Christian Webber</Company>
-    <RepositoryUrl>https://github.com/vonderborch/Velentr.BASE</RepositoryUrl>
-    <PackageTags></PackageTags>
-    <Description></Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors>[AUTHOR]</Authors>
+    <Company>[COMPANY]</Company>
+    <RepositoryUrl>https://github.com/vonderborch/[SOLUTIONNAME]</RepositoryUrl>
+    <PackageTags>[TAGS]</PackageTags>
+    <Description>[DESCRIPTION]</Description>
+    <PackageLicenseExpression>[LICENSE]</PackageLicenseExpression>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Version>[VERSION]</Version>
+    <FileVersion>[VERSION]</FileVersion>
+    <AssemblyVersion>[VERSION]</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants></DefineConstants>
-    <OutputPath>..\release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DefineConstants></DefineConstants>
-    <OutputPath>..\release\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DefineConstants></DefineConstants>
     <OutputPath>..\release\</OutputPath>
   </PropertyGroup>

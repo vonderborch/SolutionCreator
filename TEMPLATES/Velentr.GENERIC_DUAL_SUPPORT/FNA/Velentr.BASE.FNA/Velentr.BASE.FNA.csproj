@@ -1,18 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>Velentr.BASE.FNA</AssemblyName>
-    <RootNamespace>Velentr.BASE</RootNamespace>
+    <AssemblyName>[SOLUTIONNAME].FNA</AssemblyName>
+    <RootNamespace>[SOLUTIONNAME]</RootNamespace>
     <Platforms>x64</Platforms>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Christian Webber</Authors>
-    <Company>Christian Webber</Company>
-    <RepositoryUrl>https://github.com/vonderborch/Velentr.BASE</RepositoryUrl>
-    <PackageTags>FNA, </PackageTags>
-    <Description>A library to </Description>
-    <Version>1.0.0</Version>
-    <PackageProjectUrl>https://github.com/vonderborch/Velentr.BASE</PackageProjectUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/vonderborch/[SOLUTIONNAME]</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/vonderborch/[SOLUTIONNAME]</PackageProjectUrl>
+    <Authors>[AUTHOR]</Authors>
+    <Company>[COMPANY]</Company>
+    <PackageTags>[TAGS]</PackageTags>
+    <Description>[DESCRIPTION]</Description>
+    <PackageLicenseExpression>[LICENSE]</PackageLicenseExpression>
+    <Version>[VERSION]</Version>
+    <FileVersion>[VERSION]</FileVersion>
+    <AssemblyVersion>[VERSION]</AssemblyVersion>
     <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
@@ -26,7 +28,18 @@
     <OutputPath>..\..\release\FNA\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fnalibs" Version="21.7.0" developmentDependency="true" />
+    <Content Include="..\fnalibs\x64\FAudio.dll" Link="FAudio.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\FNA3D.dll" Link="FNA3D.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\libtheorafile.dll" Link="libtheorafile.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\fnalibs\x64\SDL2.dll" Link="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FNA\FNA.Core.csproj" PrivateAssets="All" />
