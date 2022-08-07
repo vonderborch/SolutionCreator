@@ -44,4 +44,5 @@
   <ItemGroup>
     <ProjectReference Include="..\FNA\FNA.Core.csproj" PrivateAssets="All" />
   </ItemGroup>
+  <Import Project="..\..\[SOLUTIONNAME].Shared\[SOLUTIONNAME].Shared.projitems" Label="Shared" />
 </Project>

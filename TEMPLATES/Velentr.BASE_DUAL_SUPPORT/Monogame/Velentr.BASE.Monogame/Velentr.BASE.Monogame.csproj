@@ -33,7 +33,7 @@
     <OutputPath>..\..\release\Monogame\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.0.1641" >
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>

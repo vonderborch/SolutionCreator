@@ -17,21 +17,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FNA", "FNA", "{GUID03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME]", "[SOLUTIONNAME]\[SOLUTIONNAME].csproj", "{GUID12}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].Test", "[SOLUTIONNAME].Test\[SOLUTIONNAME].Test.csproj", "{GUID13}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].Monogame", "Monogame\[SOLUTIONNAME].Monogame\[SOLUTIONNAME].Monogame.csproj", "{GUID04}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "[SOLUTIONNAME].FNA", "FNA\[SOLUTIONNAME].FNA\[SOLUTIONNAME].FNA.csproj", "{GUID05}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CoreDev", "CoreDev\CoreDev.shproj", "{GUID06}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "[SOLUTIONNAME].Shared", "[SOLUTIONNAME].Shared\[SOLUTIONNAME].Shared.shproj", "{GUID14}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FNA.Core", "FNA\FNA\FNA.Core.csproj", "{GUID10}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID12}*SharedItemsImports = 5
-		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID04}*SharedItemsImports = 5
+		[SOLUTIONNAME].Shared\[SOLUTIONNAME].Shared.projitems*{GUID14}*SharedItemsImports = 5
+		[SOLUTIONNAME].Shared\[SOLUTIONNAME].Shared.projitems*{GUID04}*SharedItemsImports = 5
+		[SOLUTIONNAME].Shared\[SOLUTIONNAME].Shared.projitems*{GUID05}*SharedItemsImports = 5
 		CoreDev\CoreDev.projitems*{GUID06}*SharedItemsImports = 13
 		CoreDev\CoreDev.projitems*{GUID08}*SharedItemsImports = 5
-		[SOLUTIONNAME]\[SOLUTIONNAME].projitems*{GUID05}*SharedItemsImports = 5
 		CoreDev\CoreDev.projitems*{GUID07}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

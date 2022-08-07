@@ -1,7 +1,7 @@
 {
   "Name": "Velentr.GENERIC_DUAL_SUPPORT",
   "TemplateAuthor": "Christian Webber",
-  "TemplateVersion": "2.0",
+  "TemplateVersion": "2.1",
   "Description": "A library with individual extensions for FNA and Monogame as well as a generic implementation.",
   
   "DefaultAuthor": "<CurrentFullName>",
@@ -14,7 +14,7 @@
   "DefaultNugetTags": "",
   "DefaultNugetLicense": "MIT",
   
-  "Guids": 12,
+  "Guids": 14,
   "ExcludedDirectories": [".git", ".vs"],
   "ReplaceText": {"Velentr.BASE": "<ProjectName>", "Velentr.BASE_DUAL_SUPPORT": "<ProjectName>"},
   "CleanupDirectories": [],
