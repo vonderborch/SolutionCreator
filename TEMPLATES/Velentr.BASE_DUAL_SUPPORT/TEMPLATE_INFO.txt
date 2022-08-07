@@ -1,7 +1,7 @@
 {
   "Name": "Velentr.BASE_DUAL_SUPPORT",
   "TemplateAuthor": "Christian Webber",
-  "TemplateVersion": "2.1",
+  "TemplateVersion": "2.2",
   "Description": "A library with individual implementations for FNA and Monogame.",
   
   "DefaultAuthor": "<CurrentFullName>",

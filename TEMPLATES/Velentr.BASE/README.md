@@ -1,10 +1,10 @@
-# Velentr.BASE
-A library
+# [SOLUTIONNAME]
+[DESCRIPTION]
 
 # Installation
-[![NuGet version (Velentr.BASE)](https://img.shields.io/nuget/v/Velentr.BASE.svg?style=flat-square)](https://www.nuget.org/packages/Velentr.BASE/)
+[![NuGet version ([SOLUTIONNAME])](https://img.shields.io/nuget/v/[SOLUTIONNAME].svg?style=flat-square)](https://www.nuget.org/packages/[SOLUTIONNAME]/)
 
-A nuget package is available: [Velentr.BASE](https://www.nuget.org/packages/Velentr.BASE/)
+A nuget package is available: [[SOLUTIONNAME]](https://www.nuget.org/packages/[SOLUTIONNAME]/)
 
 # Future Plans
-See list of issues under the Milestones: https://github.com/vonderborch/Velentr.BASE/milestones
+See list of issues under the Milestones: https://github.com/vonderborch/[SOLUTIONNAME]/milestones

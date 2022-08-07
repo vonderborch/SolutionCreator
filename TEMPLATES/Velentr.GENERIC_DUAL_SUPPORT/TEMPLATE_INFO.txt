@@ -1,7 +1,7 @@
 {
   "Name": "Velentr.GENERIC_DUAL_SUPPORT",
   "TemplateAuthor": "Christian Webber",
-  "TemplateVersion": "2.1",
+  "TemplateVersion": "2.2",
   "Description": "A library with individual extensions for FNA and Monogame as well as a generic implementation.",
   
   "DefaultAuthor": "<CurrentFullName>",
