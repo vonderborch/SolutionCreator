@@ -251,6 +251,7 @@
             this.validationErrors_txt.Multiline = true;
             this.validationErrors_txt.Name = "validationErrors_txt";
             this.validationErrors_txt.ReadOnly = true;
+            this.validationErrors_txt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.validationErrors_txt.Size = new System.Drawing.Size(819, 113);
             this.validationErrors_txt.TabIndex = 31;
             // 
@@ -471,6 +472,7 @@
             this.instructions_txt.Multiline = true;
             this.instructions_txt.Name = "instructions_txt";
             this.instructions_txt.ReadOnly = true;
+            this.instructions_txt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.instructions_txt.Size = new System.Drawing.Size(287, 195);
             this.instructions_txt.TabIndex = 2;
             // 
@@ -489,6 +491,7 @@
             this.output_txt.Multiline = true;
             this.output_txt.Name = "output_txt";
             this.output_txt.ReadOnly = true;
+            this.output_txt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.output_txt.Size = new System.Drawing.Size(284, 195);
             this.output_txt.TabIndex = 0;
             // 
