@@ -9,18 +9,20 @@ namespace SolutionCreator.Core
     public class Solution
     {
         private static readonly List<string> ExcludedFiles = new() {"TEMPLATE_INFO.txt", "SolutionBackup.sln"};
+        private readonly Func<string, bool> _commandsOutputMethod;
         private readonly Func<string, bool> _instructionsOutputMethod;
         private readonly Func<string, bool> _outputMethod;
         private readonly Dictionary<string, string> _replacementText;
         private readonly SolutionSettings _settings;
         private readonly Template _template;
 
-        public Solution(Template template, SolutionSettings settings, Func<string, bool> outputMethod, Func<string, bool> instructionsOutputMethod)
+        public Solution(Template template, SolutionSettings settings, Func<string, bool> outputMethod, Func<string, bool> instructionsOutputMethod, Func<string, bool> commandsOutputMethod)
         {
             this._template = template;
             this._settings = settings;
             this._outputMethod = outputMethod;
             this._instructionsOutputMethod = instructionsOutputMethod;
+            this._commandsOutputMethod = commandsOutputMethod;
 
             this._replacementText = new Dictionary<string, string>();
             foreach (var pair in template.ReplaceText)
@@ -77,6 +79,7 @@ namespace SolutionCreator.Core
             if (this._template.Commands.Count == 0)
             {
                 Log("No commands to run!");
+                this._commandsOutputMethod("N/A");
             }
             else
             {
@@ -106,21 +109,31 @@ namespace SolutionCreator.Core
             // Step 5 - Display Instructions
             Log("Formatting manual instructions for output...");
             var instructions = new StringBuilder();
+
+            if (this._template.Instructions.Count == 0 && !addCommandsToInstructions)
+            {
+                instructions.AppendLine("N/A");
+            }
+            else
+            {
+                foreach (var instruction in this._template.Instructions)
+                {
+                    instructions.AppendLine(instruction);
+                }
+            }
+
             if (addCommandsToInstructions)
             {
                 instructions.AppendLine("Please execute the following commands once git has been enabled in the repo:");
 
+                var commandOutput = new StringBuilder();
                 foreach (var command in this._template.Commands)
                 {
-                    instructions.AppendLine(command);
+                    commandOutput.AppendLine(command);
                 }
 
-                instructions.AppendLine("");
-            }
-
-            foreach (var instruction in this._template.Instructions)
-            {
-                instructions.AppendLine(instruction);
+                commandOutput.AppendLine("");
+                this._commandsOutputMethod(commandOutput.ToString());
             }
 
             this._instructionsOutputMethod(instructions.ToString());

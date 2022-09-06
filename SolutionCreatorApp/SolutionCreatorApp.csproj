@@ -8,9 +8,10 @@
     <RollForward>Major</RollForward>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
-    <Version>2.0.0</Version>
-    <FileVersion>2.0.0</FileVersion>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <Version>2.1.0</Version>
+    <FileVersion>2.1.0</FileVersion>
+    <AssemblyVersion>2.1.0</AssemblyVersion>
+    <StartupObject>SolutionCreatorApp.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,11 +33,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Octokit" Version="2.0.1" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SolutionCreator.Core\SolutionCreator.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
