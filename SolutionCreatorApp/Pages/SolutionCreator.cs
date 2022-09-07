@@ -479,11 +479,6 @@ namespace SolutionCreatorApp.Pages
                     this._repoFileConflictMode = FileConflictMode.KeepOld;
 
                     break;
-
-                case "New Name for New File (Duplicate)":
-                    this._repoFileConflictMode = FileConflictMode.Duplicate;
-
-                    break;
             }
         }
 
