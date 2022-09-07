@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.VisualBasic;
 
 using SolutionCreatorApp.Pages;
+using SolutionCreatorApp.Properties;
 
 namespace SolutionCreatorApp
 {
@@ -114,6 +115,30 @@ namespace SolutionCreatorApp
             catch
             {
                 Interaction.MsgBox(errorMessage);
+            }
+        }
+
+        private void setAccessTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var token = Interaction.InputBox("GIT Username?", "GIT Username");
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                Settings.Default.User = token;
+            }
+        }
+
+        private void clearAccessTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings.Default.User = string.Empty;
+            Settings.Default.Password = string.Empty;
+        }
+
+        private void setPasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var token = Interaction.InputBox("GIT Password?", "GIT Password");
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                Settings.Default.Password = token;
             }
         }
     }

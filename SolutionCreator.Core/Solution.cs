@@ -4,6 +4,10 @@ using System.Text;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 
+using Octokit;
+
+using Repository = LibGit2Sharp.Repository;
+
 namespace SolutionCreator.Core
 {
     public class Solution
@@ -63,86 +67,143 @@ namespace SolutionCreator.Core
 
         public void GenerateSolution()
         {
-            // Generate!
-
-            // Step 1 - Unzip the template
-            Log("Extracting template...");
-            UnzipDirectory();
-
-            // Step 2 - Update naming of directories and files (and update the contents of the files!)
-            Log("Updating template naming...");
-            UpdateDirectory(this.SolutionDirectory);
-
-            // Step 3 - Run commands, if possible
-            Log("Running commands...");
-            var addCommandsToInstructions = false;
-            if (this._template.Commands.Count == 0)
+            try
             {
-                Log("No commands to run!");
-                this._commandsOutputMethod("N/A");
-            }
-            else
-            {
-                if (!this._template.CommandsRequireGit || (this._template.CommandsRequireGit && Directory.Exists(Path.Combine(this.SolutionDirectory, ".git"))))
+                // Generate!
+                GitHubClient client;
+                var cmdStart = $"/C cd \"{this.SolutionDirectory}\"";
+
+                // Step 1 - Git, Part 1
+                if (this._settings.GitSettings.RepoMode != GitRepoMode.NoRepo)
                 {
-                    var cmdStart = $"/C cd \"{this.SolutionDirectory}\"";
-                    for (var i = 0; i < this._template.Commands.Count; i++)
+                    client = new GitHubClient(new ProductHeaderValue("Solution-Creator")) {Credentials = this._settings.GitSettings.Credentials};
+                    var gitUrl = $"https://github.com/{this._settings.GitSettings.Username}/{this._settings.GitSettings.RepoName}.git";
+
+                    if (this._settings.GitSettings.RepoMode == GitRepoMode.NewRepoOnlyInit)
                     {
-                        var cmd = Process.Start(Constants.CommandPrompt, $"{cmdStart} & {this._template.Commands[i]}");
-                        cmd.WaitForExit();
+                        Directory.CreateDirectory(this.SolutionDirectory);
+                        Repository.Init(this.SolutionDirectory);
                     }
+                    else if (this._settings.GitSettings.RepoMode == GitRepoMode.NewRepoFull)
+                    {
+                        var repository = new NewRepository(this._settings.GitSettings.RepoName)
+                                         {
+                                             AutoInit = false, Description = this._settings.NugetPackageDescription, LicenseTemplate = this._settings.NugetPackageLicenseType, Private = this._settings.GitSettings.IsPrivate
+                                         };
+
+                        var context = client.Repository.Create(repository);
+                        Repository.Clone(gitUrl, Path.GetDirectoryName(this.SolutionDirectory));
+                    }
+                    else if (this._settings.GitSettings.RepoMode == GitRepoMode.ExistingRepoCleanSlate)
+                    {
+                        Repository.Clone(gitUrl, this.SolutionDirectory);
+                        DeleteDirectoryExcludeGit(this.SolutionDirectory);
+                    }
+                    else if (this._settings.GitSettings.RepoMode == GitRepoMode.ExistingRepoKeepExistingCode)
+                    {
+                        Repository.Clone(gitUrl, Path.GetDirectoryName(this.SolutionDirectory));
+                    }
+                }
+
+                // Step 2 - Unzip the template
+                Log("Extracting template...");
+                UnzipDirectory(this._settings.FileConflictMode);
+
+                // Step 3 - Update naming of directories and files (and update the contents of the files!)
+                Log("Updating template naming...");
+                UpdateDirectory(this.SolutionDirectory, this._settings.FileConflictMode);
+
+                // Step 4 - Run commands, if possible
+                Log("Running commands...");
+                var addCommandsToInstructions = false;
+                if (this._template.Commands.Count == 0)
+                {
+                    Log("No commands to run!");
+                    this._commandsOutputMethod("N/A");
                 }
                 else
                 {
-                    addCommandsToInstructions = true;
-                    Log("Unable to run commands, git is not enabled in the solution's directory!");
+                    if (!this._template.CommandsRequireGit || (this._template.CommandsRequireGit && Directory.Exists(Path.Combine(this.SolutionDirectory, ".git"))))
+                    {
+                        for (var i = 0; i < this._template.Commands.Count; i++)
+                        {
+                            var cmd = Process.Start(Constants.CommandPrompt, $"{cmdStart} & {this._template.Commands[i]}");
+                            cmd.WaitForExit();
+                        }
+                    }
+                    else
+                    {
+                        addCommandsToInstructions = true;
+                        Log("Unable to run commands, git is not enabled in the solution's directory!");
+                    }
                 }
-            }
 
-            // Step 4 - Cleanup after ourselves
-            Log("Cleaning up...");
-            for (var i = 0; i < this._template.CleanupDirectories.Count; i++)
-            {
-                Directory.Delete(this._template.CleanupDirectories[i], true);
-            }
-
-            // Step 5 - Display Instructions
-            Log("Formatting manual instructions for output...");
-            var instructions = new StringBuilder();
-
-            if (this._template.Instructions.Count == 0 && !addCommandsToInstructions)
-            {
-                instructions.AppendLine("N/A");
-            }
-            else
-            {
-                foreach (var instruction in this._template.Instructions)
+                // Step 5 - Cleanup after ourselves
+                Log("Cleaning up...");
+                for (var i = 0; i < this._template.CleanupDirectories.Count; i++)
                 {
-                    instructions.AppendLine(instruction);
+                    Directory.Delete(this._template.CleanupDirectories[i], true);
                 }
-            }
 
-            if (addCommandsToInstructions)
-            {
-                instructions.AppendLine("Please execute the following commands once git has been enabled in the repo:");
+                // Step 6 - Display Instructions
+                Log("Formatting manual instructions for output...");
+                var instructions = new StringBuilder();
 
-                var commandOutput = new StringBuilder();
-                foreach (var command in this._template.Commands)
+                if (this._template.Instructions.Count == 0 && !addCommandsToInstructions)
                 {
-                    commandOutput.AppendLine(command);
+                    instructions.AppendLine("N/A");
+                }
+                else
+                {
+                    foreach (var instruction in this._template.Instructions)
+                    {
+                        instructions.AppendLine(instruction);
+                    }
                 }
 
-                commandOutput.AppendLine("");
-                this._commandsOutputMethod(commandOutput.ToString());
+                if (addCommandsToInstructions)
+                {
+                    instructions.AppendLine("Please execute the following commands once git has been enabled in the repo:");
+
+                    var commandOutput = new StringBuilder();
+                    foreach (var command in this._template.Commands)
+                    {
+                        commandOutput.AppendLine(command);
+                    }
+
+                    commandOutput.AppendLine("");
+                    this._commandsOutputMethod(commandOutput.ToString());
+                }
+
+                this._instructionsOutputMethod(instructions.ToString());
+
+                // Done!
+                Log("Solution generated!");
             }
-
-            this._instructionsOutputMethod(instructions.ToString());
-
-            // Done!
-            Log("Solution generated!");
+            catch (Exception ex)
+            {
+                Log("Failed to generate solution!");
+                Log(ex.ToString());
+            }
         }
 
-        private void UnzipDirectory()
+        private void DeleteDirectoryExcludeGit(string directory)
+        {
+            foreach (var file in Directory.GetFiles(directory))
+            {
+                File.Delete(file);
+            }
+
+            foreach (var dir in Directory.GetDirectories(directory))
+            {
+                if (Path.GetFileNameWithoutExtension(dir) != ".git")
+                {
+                    DeleteDirectoryExcludeGit(dir);
+                }
+            }
+        }
+
+        private void UnzipDirectory(FileConflictMode fileConflictMode)
         {
             var archivePath = this._template.FilePath;
             var outputDirectory = this.SolutionDirectory;
@@ -176,6 +237,20 @@ namespace SolutionCreator.Core
                                 var buffer = new byte[4096];
                                 if (File.Exists(path))
                                 {
+                                    switch (fileConflictMode)
+                                    {
+                                        case FileConflictMode.Override:
+                                            File.Delete(path);
+
+                                            break;
+
+                                        case FileConflictMode.KeepOld:
+                                            continue;
+                                    }
+                                }
+
+                                if (File.Exists(path))
+                                {
                                     File.Delete(path);
                                 }
 
@@ -193,7 +268,7 @@ namespace SolutionCreator.Core
             }
         }
 
-        private void UpdateDirectory(string directory)
+        private void UpdateDirectory(string directory, FileConflictMode fileConflictMode)
         {
             var entries = Directory.GetFileSystemEntries(directory);
             foreach (var entry in entries)
@@ -216,13 +291,27 @@ namespace SolutionCreator.Core
 
                     if (!this._template.RenameOnlyDirectories.Contains(Path.GetFileName(entry)))
                     {
-                        UpdateDirectory(path);
+                        UpdateDirectory(path, fileConflictMode);
                     }
                 }
                 else
                 {
                     if (entry != newEntryPath)
                     {
+                        if (File.Exists(newEntryPath))
+                        {
+                            switch (fileConflictMode)
+                            {
+                                case FileConflictMode.Override:
+                                    File.Delete(newEntryPath);
+
+                                    break;
+
+                                case FileConflictMode.KeepOld:
+                                    continue;
+                            }
+                        }
+
                         File.Move(entry, newEntryPath);
                     }
 

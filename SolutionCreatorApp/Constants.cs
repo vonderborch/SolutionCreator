@@ -12,6 +12,8 @@ namespace SolutionCreatorApp
 
         public static string IssueAndFeatureRequestPage = "https://www.github.com/vonderborch/SolutionCreator/issues/new";
 
+        public static string AccessTokenUrl = "https://github.com/settings/applications/new";
+
         public static string NewVersionPage = "https://github.com/vonderborch/To-Do-List/releases";
 
         static Constants() { }

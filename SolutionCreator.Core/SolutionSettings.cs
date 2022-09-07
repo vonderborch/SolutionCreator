@@ -4,6 +4,9 @@
     {
         public string Author;
         public string CompanyName;
+
+        public FileConflictMode FileConflictMode;
+        public GitSettings GitSettings;
         public string NugetPackageDescription;
         public string NugetPackageLicenseType;
         public string NugetPackageTags;
@@ -20,6 +23,8 @@
           , string nugetPackageDescription
           , string nugetLicenseType
           , string nugetPackageTags
+          , FileConflictMode fileMode
+          , GitSettings gitSettings
         )
         {
             this.Author = author;
@@ -30,6 +35,8 @@
             this.NugetPackageDescription = nugetPackageDescription;
             this.NugetPackageLicenseType = nugetLicenseType;
             this.NugetPackageTags = nugetPackageTags;
+            this.GitSettings = gitSettings;
+            this.FileConflictMode = fileMode;
         }
     }
 }

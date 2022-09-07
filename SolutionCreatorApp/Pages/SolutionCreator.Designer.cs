@@ -41,6 +41,13 @@
             this.templateAuthor_txt = new System.Windows.Forms.TextBox();
             this.refresh_btn = new System.Windows.Forms.Button();
             this.solutionConfig_box = new System.Windows.Forms.GroupBox();
+            this.gitPrivate_cxb = new System.Windows.Forms.CheckBox();
+            this.gitExistingRepo_lst = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.gitRepoName_txt = new System.Windows.Forms.TextBox();
+            this.gitSetting_lst = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.reset_btn = new System.Windows.Forms.Button();
             this.log_txt = new System.Windows.Forms.TextBox();
             this.copyCommands_btn = new System.Windows.Forms.Button();
@@ -80,7 +87,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1524, 642);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1121, 745);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // solutionTemplates_box
@@ -97,7 +104,7 @@
             this.solutionTemplates_box.Controls.Add(this.refresh_btn);
             this.solutionTemplates_box.Location = new System.Drawing.Point(3, 3);
             this.solutionTemplates_box.Name = "solutionTemplates_box";
-            this.solutionTemplates_box.Size = new System.Drawing.Size(314, 627);
+            this.solutionTemplates_box.Size = new System.Drawing.Size(314, 648);
             this.solutionTemplates_box.TabIndex = 14;
             this.solutionTemplates_box.TabStop = false;
             this.solutionTemplates_box.Text = "Solution Templates";
@@ -144,7 +151,7 @@
             this.templateDescription_txt.Name = "templateDescription_txt";
             this.templateDescription_txt.ReadOnly = true;
             this.templateDescription_txt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.templateDescription_txt.Size = new System.Drawing.Size(291, 465);
+            this.templateDescription_txt.Size = new System.Drawing.Size(291, 484);
             this.templateDescription_txt.TabIndex = 17;
             // 
             // label1
@@ -194,6 +201,13 @@
             // 
             // solutionConfig_box
             // 
+            this.solutionConfig_box.Controls.Add(this.gitPrivate_cxb);
+            this.solutionConfig_box.Controls.Add(this.gitExistingRepo_lst);
+            this.solutionConfig_box.Controls.Add(this.label17);
+            this.solutionConfig_box.Controls.Add(this.label15);
+            this.solutionConfig_box.Controls.Add(this.gitRepoName_txt);
+            this.solutionConfig_box.Controls.Add(this.gitSetting_lst);
+            this.solutionConfig_box.Controls.Add(this.label14);
             this.solutionConfig_box.Controls.Add(this.reset_btn);
             this.solutionConfig_box.Controls.Add(this.log_txt);
             this.solutionConfig_box.Controls.Add(this.copyCommands_btn);
@@ -223,14 +237,87 @@
             this.solutionConfig_box.Enabled = false;
             this.solutionConfig_box.Location = new System.Drawing.Point(323, 3);
             this.solutionConfig_box.Name = "solutionConfig_box";
-            this.solutionConfig_box.Size = new System.Drawing.Size(617, 627);
+            this.solutionConfig_box.Size = new System.Drawing.Size(770, 648);
             this.solutionConfig_box.TabIndex = 42;
             this.solutionConfig_box.TabStop = false;
             this.solutionConfig_box.Text = "New Solution Configuration";
             // 
+            // gitPrivate_cxb
+            // 
+            this.gitPrivate_cxb.AutoSize = true;
+            this.gitPrivate_cxb.Location = new System.Drawing.Point(213, 312);
+            this.gitPrivate_cxb.Name = "gitPrivate_cxb";
+            this.gitPrivate_cxb.Size = new System.Drawing.Size(92, 19);
+            this.gitPrivate_cxb.TabIndex = 50;
+            this.gitPrivate_cxb.Text = "Private Repo";
+            this.gitPrivate_cxb.UseVisualStyleBackColor = true;
+            // 
+            // gitExistingRepo_lst
+            // 
+            this.gitExistingRepo_lst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.gitExistingRepo_lst.FormattingEnabled = true;
+            this.gitExistingRepo_lst.Items.AddRange(new object[] {
+            "Keep Only New File (Override)",
+            "Keep Only Old File"});
+            this.gitExistingRepo_lst.Location = new System.Drawing.Point(132, 341);
+            this.gitExistingRepo_lst.Name = "gitExistingRepo_lst";
+            this.gitExistingRepo_lst.Size = new System.Drawing.Size(474, 23);
+            this.gitExistingRepo_lst.TabIndex = 49;
+            this.gitExistingRepo_lst.SelectedIndexChanged += new System.EventHandler(this.gitExistingRepo_lst_SelectedIndexChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 344);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(113, 15);
+            this.label17.TabIndex = 48;
+            this.label17.Text = "File Conflict Setting:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(135, 286);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(72, 15);
+            this.label15.TabIndex = 44;
+            this.label15.Text = "Repo Name:";
+            // 
+            // gitRepoName_txt
+            // 
+            this.gitRepoName_txt.Location = new System.Drawing.Point(213, 283);
+            this.gitRepoName_txt.Name = "gitRepoName_txt";
+            this.gitRepoName_txt.Size = new System.Drawing.Size(393, 23);
+            this.gitRepoName_txt.TabIndex = 43;
+            // 
+            // gitSetting_lst
+            // 
+            this.gitSetting_lst.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.gitSetting_lst.FormattingEnabled = true;
+            this.gitSetting_lst.Items.AddRange(new object[] {
+            "No Repo",
+            "New Repo, Only Init",
+            "New Repo, Full",
+            "Existing Repo, Clean Slate",
+            "Existing Repo, Keep Existing Code"});
+            this.gitSetting_lst.Location = new System.Drawing.Point(89, 254);
+            this.gitSetting_lst.Name = "gitSetting_lst";
+            this.gitSetting_lst.Size = new System.Drawing.Size(517, 23);
+            this.gitSetting_lst.TabIndex = 42;
+            this.gitSetting_lst.SelectedIndexChanged += new System.EventHandler(this.gitSetting_lst_SelectedIndexChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 257);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(70, 15);
+            this.label14.TabIndex = 41;
+            this.label14.Text = "Git Settings:";
+            // 
             // reset_btn
             // 
-            this.reset_btn.Location = new System.Drawing.Point(6, 252);
+            this.reset_btn.Location = new System.Drawing.Point(6, 370);
             this.reset_btn.Name = "reset_btn";
             this.reset_btn.Size = new System.Drawing.Size(43, 47);
             this.reset_btn.TabIndex = 34;
@@ -240,17 +327,17 @@
             // 
             // log_txt
             // 
-            this.log_txt.Location = new System.Drawing.Point(6, 305);
+            this.log_txt.Location = new System.Drawing.Point(612, 9);
             this.log_txt.Multiline = true;
             this.log_txt.Name = "log_txt";
             this.log_txt.ReadOnly = true;
             this.log_txt.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.log_txt.Size = new System.Drawing.Size(600, 87);
+            this.log_txt.Size = new System.Drawing.Size(146, 631);
             this.log_txt.TabIndex = 33;
             // 
             // copyCommands_btn
             // 
-            this.copyCommands_btn.Location = new System.Drawing.Point(527, 495);
+            this.copyCommands_btn.Location = new System.Drawing.Point(527, 520);
             this.copyCommands_btn.Name = "copyCommands_btn";
             this.copyCommands_btn.Size = new System.Drawing.Size(79, 91);
             this.copyCommands_btn.TabIndex = 32;
@@ -260,7 +347,7 @@
             // 
             // commands_txt
             // 
-            this.commands_txt.Location = new System.Drawing.Point(6, 495);
+            this.commands_txt.Location = new System.Drawing.Point(6, 520);
             this.commands_txt.Multiline = true;
             this.commands_txt.Name = "commands_txt";
             this.commands_txt.ReadOnly = true;
@@ -270,7 +357,7 @@
             // 
             // copyInstructions_btn
             // 
-            this.copyInstructions_btn.Location = new System.Drawing.Point(527, 398);
+            this.copyInstructions_btn.Location = new System.Drawing.Point(527, 423);
             this.copyInstructions_btn.Name = "copyInstructions_btn";
             this.copyInstructions_btn.Size = new System.Drawing.Size(79, 91);
             this.copyInstructions_btn.TabIndex = 4;
@@ -281,7 +368,7 @@
             // goToDirectory_btn
             // 
             this.goToDirectory_btn.Enabled = false;
-            this.goToDirectory_btn.Location = new System.Drawing.Point(6, 592);
+            this.goToDirectory_btn.Location = new System.Drawing.Point(6, 617);
             this.goToDirectory_btn.Name = "goToDirectory_btn";
             this.goToDirectory_btn.Size = new System.Drawing.Size(600, 23);
             this.goToDirectory_btn.TabIndex = 5;
@@ -300,7 +387,7 @@
             // 
             // instructions_txt
             // 
-            this.instructions_txt.Location = new System.Drawing.Point(6, 398);
+            this.instructions_txt.Location = new System.Drawing.Point(6, 423);
             this.instructions_txt.Multiline = true;
             this.instructions_txt.Name = "instructions_txt";
             this.instructions_txt.ReadOnly = true;
@@ -310,7 +397,7 @@
             // 
             // generate_btn
             // 
-            this.generate_btn.Location = new System.Drawing.Point(55, 252);
+            this.generate_btn.Location = new System.Drawing.Point(55, 370);
             this.generate_btn.Name = "generate_btn";
             this.generate_btn.Size = new System.Drawing.Size(551, 47);
             this.generate_btn.TabIndex = 0;
@@ -347,9 +434,9 @@
             // 
             // nugetDescription_txt
             // 
-            this.nugetDescription_txt.Location = new System.Drawing.Point(277, 167);
+            this.nugetDescription_txt.Location = new System.Drawing.Point(258, 167);
             this.nugetDescription_txt.Name = "nugetDescription_txt";
-            this.nugetDescription_txt.Size = new System.Drawing.Size(329, 23);
+            this.nugetDescription_txt.Size = new System.Drawing.Size(348, 23);
             this.nugetDescription_txt.TabIndex = 28;
             this.nugetDescription_txt.TextChanged += new System.EventHandler(this.nugetDescription_txt_TextChanged);
             // 
@@ -399,9 +486,9 @@
             // 
             // nugetTags_txt
             // 
-            this.nugetTags_txt.Location = new System.Drawing.Point(277, 225);
+            this.nugetTags_txt.Location = new System.Drawing.Point(258, 225);
             this.nugetTags_txt.Name = "nugetTags_txt";
-            this.nugetTags_txt.Size = new System.Drawing.Size(329, 23);
+            this.nugetTags_txt.Size = new System.Drawing.Size(348, 23);
             this.nugetTags_txt.TabIndex = 16;
             this.nugetTags_txt.TextChanged += new System.EventHandler(this.nugetTags_txt_TextChanged);
             // 
@@ -433,9 +520,9 @@
             // 
             // nugetLicense_txt
             // 
-            this.nugetLicense_txt.Location = new System.Drawing.Point(277, 196);
+            this.nugetLicense_txt.Location = new System.Drawing.Point(258, 196);
             this.nugetLicense_txt.Name = "nugetLicense_txt";
-            this.nugetLicense_txt.Size = new System.Drawing.Size(329, 23);
+            this.nugetLicense_txt.Size = new System.Drawing.Size(348, 23);
             this.nugetLicense_txt.TabIndex = 14;
             this.nugetLicense_txt.TextChanged += new System.EventHandler(this.nugetLicense_txt_TextChanged);
             // 
@@ -469,7 +556,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1524, 642);
+            this.ClientSize = new System.Drawing.Size(1121, 745);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SolutionCreator";
@@ -524,5 +611,12 @@
         private Button goToDirectory_btn;
         private TextBox instructions_txt;
         private Button reset_btn;
+        private ComboBox gitSetting_lst;
+        private Label label14;
+        private Label label17;
+        private ComboBox gitExistingRepo_lst;
+        private CheckBox gitPrivate_cxb;
+        private Label label15;
+        private TextBox gitRepoName_txt;
     }
 }
