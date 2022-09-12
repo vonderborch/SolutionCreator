@@ -57,6 +57,59 @@ namespace SolutionCreator
                 _instructions = new List<string>();
                 _commands = new List<string>();
 
+                if (opts.Silent)
+                {
+                    opts.Author = GetActualValue(opts.Author, template.DefaultAuthor);
+                    opts.Company = GetActualValue(opts.Company, template.DefaultCompanyName);
+                    opts.StartingVersion = GetActualValue(opts.StartingVersion, "1.0.0");
+
+                    opts.NugetDescription = GetActualValue(opts.NugetDescription, template.DefaultNugetDescription);
+                    opts.NugetLicense = GetActualValue(opts.NugetLicense, template.DefaultNugetLicense);
+                    opts.NugetTags = GetActualValue(opts.NugetTags, template.DefaultNugetTags);
+
+                    opts.GitRepoMode ??= GitRepoMode.NoRepo;
+                    opts.GitRepoName = GetActualValue(opts.GitRepoName, string.Empty);
+                    opts.IsPrivateGitRepo ??= false;
+                }
+                else
+                {
+                    opts.Author = AskActualValue("Author?", opts.Author, template.DefaultAuthor);
+                    opts.Company = AskActualValue("Company Name?", opts.Company, template.DefaultCompanyName);
+                    opts.StartingVersion = AskActualValue("Starting Version?", opts.StartingVersion, "1.0.0");
+
+                    if (template.AskForNugetInfo)
+                    {
+                        opts.NugetDescription = AskActualValue("Nuget Description?", opts.NugetDescription, template.DefaultNugetDescription);
+                        opts.NugetLicense = AskActualValue("Nuget License?", opts.NugetLicense, template.DefaultNugetLicense);
+                        opts.NugetTags = AskActualValue("Nuget Tags?", opts.NugetTags, template.DefaultNugetTags);
+                    }
+
+                    if (opts.GitRepoMode is not GitRepoMode.NoRepo)
+                    {
+                        if (opts.GitRepoMode == null)
+                        {
+                            Console.WriteLine("Git Repo Mode?");
+                            var validOptions = (from action in (GitRepoMode[]) Enum.GetValues(typeof(GitRepoMode)) select action.ToString()).ToList();
+                            string? gitOption = null;
+                            while (!validOptions.Contains(gitOption ?? string.Empty))
+                            {
+                                gitOption = Console.ReadLine();
+                            }
+
+                            if (Enum.TryParse(gitOption ?? string.Empty, out GitRepoMode opt))
+                            {
+                                opts.GitRepoMode = opt;
+                            }
+                        }
+
+                        if (opts.GitRepoMode != GitRepoMode.NoRepo)
+                        {
+                            opts.GitRepoName = AskActualValue("Git Repo Name?", opts.GitRepoName, string.Empty);
+                            opts.IsPrivateGitRepo = AskActualBoolean("Is Private Git Repo?", opts.IsPrivateGitRepo, false);
+                        }
+                    }
+                }
+
                 var settings = new SolutionSettings(
                                                     GetActualValue(opts.Author, template.DefaultAuthor)
                                                   , GetActualValue(opts.Company, template.DefaultCompanyName)
@@ -72,8 +125,8 @@ namespace SolutionCreator
                                                                   , gitUser
                                                                   , gitUser
                                                                   , gitPass
-                                                                  , opts.IsPrivateGitRepo
-                                                                  , opts.GitRepoMode
+                                                                  , opts.IsPrivateGitRepo ?? false
+                                                                  , opts.GitRepoMode ?? GitRepoMode.NoRepo
                                                                    )
                                                    );
 
@@ -124,6 +177,64 @@ namespace SolutionCreator
         public static string GetActualValue(string option, string defaultValue)
         {
             return string.IsNullOrWhiteSpace(option) ? defaultValue : option;
+        }
+
+        public static bool AskActualBoolean(string message, bool? option, bool defaultValue)
+        {
+            if (option == null)
+            {
+                Console.WriteLine($"{message} (Default: {defaultValue}) (Yy/Nn)");
+                var validOptions = new List<string>
+                                   {
+                                       "Y"
+                                     , "N"
+                                     , "YES"
+                                     , "NO"
+                                     , "T"
+                                     , "TRUE"
+                                     , "F"
+                                     , "FALSE"
+                                     , ""
+                                   };
+
+                string? output = null;
+                while (validOptions.Contains(output ?? string.Empty))
+                {
+                    output = Console.ReadLine();
+                }
+
+                switch ((output ?? string.Empty).ToUpperInvariant())
+                {
+                    case "":
+                        return defaultValue;
+
+                    case "Y":
+                    case "YES":
+                    case "T":
+                    case "TRUE":
+                        return true;
+
+                    case "N":
+                    case "NO":
+                    case "F":
+                    case "FALSE":
+                        return false;
+                }
+            }
+
+            return option ?? defaultValue;
+        }
+
+        public static string AskActualValue(string message, string option, string defaultValue)
+        {
+            if (string.IsNullOrWhiteSpace(option))
+            {
+                Console.WriteLine($"{message} (Default: {defaultValue})");
+
+                return Console.ReadLine() ?? defaultValue;
+            }
+
+            return option;
         }
 
         public static bool UpdateLog(string value)

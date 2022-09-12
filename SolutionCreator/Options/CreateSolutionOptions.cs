@@ -22,7 +22,7 @@ namespace SolutionCreator.Options
         [Option('c', "company", Required = false, HelpText = "The name of the company for the solution to use")]
         public string Company { get; set; }
 
-        [Option('v', "version", Required = false, Default = "1.0.0", HelpText = "The initial version number for the solution")]
+        [Option('v', "version", Required = false, HelpText = "The initial version number for the solution")]
         public string StartingVersion { get; set; }
 
         [Option("nuget-description", Required = false, HelpText = "The description of the solution using nuget")]
@@ -37,16 +37,19 @@ namespace SolutionCreator.Options
         [Option("file-conflicts", Required = false, Default = FileConflictMode.Override, HelpText = "What to do in the event of file conflicts occurring")]
         public FileConflictMode ConflictMode { get; set; }
 
-        [Option("git-mode", Required = false, Default = GitRepoMode.NoRepo, HelpText = "Settings for handling creating, or not, a git repo for the solution")]
-        public GitRepoMode GitRepoMode { get; set; }
+        [Option("git-mode", Required = false, HelpText = "Settings for handling creating, or not, a git repo for the solution")]
+        public GitRepoMode? GitRepoMode { get; set; }
 
         [Option("git-repo-name", Required = false, HelpText = "The name of the repo for the solution")]
         public string GitRepoName { get; set; }
 
         [Option("git-is-private", Required = false, HelpText = "Whether a private git repo will be created or not")]
-        public bool IsPrivateGitRepo { get; set; }
+        public bool? IsPrivateGitRepo { get; set; }
 
-        [Option('s', "templates-directory", Default = "TEMPLATES", Required = false, HelpText = "The (relative) directory to use to search for templates in")]
+        [Option('m', "templates-directory", Default = "TEMPLATES", Required = false, HelpText = "The (relative) directory to use to search for templates in")]
         public string TemplatesDirectory { get; set; }
+
+        [Option('s', "silent", Required = false, Default = false, HelpText = "Whether to ask prompts for missing info (false) or not (true)")]
+        public bool Silent { get; set; }
     }
 }

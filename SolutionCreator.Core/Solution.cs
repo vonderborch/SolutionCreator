@@ -53,11 +53,27 @@ namespace SolutionCreator.Core
 
         public bool ValidateSettings(out string[] errors)
         {
-            errors = Array.Empty<string>();
+            var actualErrors = new List<string>();
 
-            // TODO: come up with validations :)
+            // Git Validations
+            if (this._settings.GitSettings.RepoMode != GitRepoMode.NoRepo)
+            {
+                if (string.IsNullOrWhiteSpace(this._settings.GitSettings.RepoName))
+                {
+                    actualErrors.Add("Git Repo Name must be configured!");
+                }
 
-            return true;
+                if (string.IsNullOrWhiteSpace(this._settings.GitSettings.Username) || string.IsNullOrWhiteSpace(this._settings.GitSettings.Password))
+                {
+                    actualErrors.Add("Git username/password must be configured!");
+                }
+            }
+
+            // TODO: come up with more validations :)
+
+            errors = actualErrors.ToArray();
+
+            return actualErrors.Count == 0;
         }
 
         public void Log(string value)
