@@ -4,6 +4,8 @@ using System.Text;
 
 using CommandLine;
 
+using Newtonsoft.Json;
+
 using Octokit;
 
 using SolutionCreator.Core;
@@ -19,11 +21,12 @@ namespace SolutionCreator
 
         public static void Main(string[] args)
         {
-            args = new[] {"list-templates"};
+            args = new[] {"help", "new-solution"};
             var parseResults = Parser.Default.ParseArguments<CreateSolutionOptions, ListAvailableTemplates, GitSettingsOptions, CheckForUpdatesOptions, ReportIssueOptions>(args);
             var texts = parseResults.MapResult(
                                                (CreateSolutionOptions opts) => CreateSolution(opts)
                                              , (ListAvailableTemplates opts) => ListTemplates(opts)
+                                             , (DownloadUpdateTemplates opts) => DownloadOrUpdateTemplates(opts)
                                              , (GitSettingsOptions opts) => GitSettings(opts)
                                              , (CheckForUpdatesOptions opts) => CheckForUpdate(opts)
                                              , (ReportIssueOptions opts) => ReportIssue(opts)
@@ -33,6 +36,11 @@ namespace SolutionCreator
 
         public static string CreateSolution(CreateSolutionOptions opts)
         {
+            if (NeedsToDownloadTemplates(opts.TemplatesDirectory))
+            {
+                DownloadOrUpdateTemplates(new DownloadUpdateTemplates {TemplatesDirectory = opts.TemplatesDirectory});
+            }
+
             var core = new Core.Core(opts.TemplatesDirectory);
             core.RefreshTemplatesList();
 
@@ -258,8 +266,72 @@ namespace SolutionCreator
             return true;
         }
 
+        public static bool NeedsToDownloadTemplates(string templatesDirectory)
+        {
+            var dir = Path.Combine(Directory.GetCurrentDirectory(), templatesDirectory);
+            if (!Directory.Exists(dir))
+            {
+                return true;
+            }
+
+            if (Directory.GetFiles(dir).Length == 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static string DownloadOrUpdateTemplates(DownloadUpdateTemplates opts)
+        {
+            Console.WriteLine("Checking for new or updated templates at the template repository...");
+            var gitClient = new GitHubClient(new ProductHeaderValue("Solution-Creator-CMD"));
+
+            var rootPath = Path.Combine(Directory.GetCurrentDirectory(), opts.TemplatesDirectory);
+            var path = Path.Combine(rootPath, "templates.json");
+            var remoteInfo = TemplateRepository.GetTemplatesInfo(gitClient);
+            var localInfo = TemplateRepository.LoadLocalTemplateInfo(path);
+
+            var (templatesToDownload, safeLocalTemplates) = TemplateRepository.GetTemplatesToDownload(localInfo, remoteInfo);
+
+            // download templates
+            if (templatesToDownload.Count > 0)
+            {
+                for (var i = 0; i < templatesToDownload.Count; i++)
+                {
+                    Console.WriteLine($"Downloading template {i + 1}/{templatesToDownload.Count}: {templatesToDownload[i].Item1.Name}");
+                    var template = templatesToDownload[i].Item1;
+                    var name = Path.GetFileName(template.File);
+                    var localPath = Path.Combine(rootPath, name);
+
+                    if (templatesToDownload[i].Item2 && File.Exists(localPath))
+                    {
+                        File.Delete(localPath);
+                    }
+
+                    TemplateRepository.DownloadTemplate(gitClient, template.File, localPath);
+
+                    safeLocalTemplates.Add(template);
+                }
+
+                File.WriteAllText(path, JsonConvert.SerializeObject(safeLocalTemplates));
+                Console.WriteLine("Downloaded/Updated templates!");
+            }
+            else
+            {
+                Console.WriteLine("No templates to download/update!");
+            }
+
+            return string.Empty;
+        }
+
         public static string ListTemplates(ListAvailableTemplates opts)
         {
+            if (NeedsToDownloadTemplates(opts.TemplatesDirectory))
+            {
+                DownloadOrUpdateTemplates(new DownloadUpdateTemplates {TemplatesDirectory = opts.TemplatesDirectory});
+            }
+
             var core = new Core.Core(opts.TemplatesDirectory);
             core.RefreshTemplatesList();
 
@@ -291,6 +363,8 @@ namespace SolutionCreator
 
         public static string CheckForUpdate(CheckForUpdatesOptions opts)
         {
+            Console.WriteLine("Checking for application updates...");
+
             var client = new GitHubClient(new ProductHeaderValue("Solution-Creator"));
             var latestReleaseTask = client.Repository.Release.GetLatest("vonderborch", "SolutionCreator");
             if (latestReleaseTask.Wait(10000))
