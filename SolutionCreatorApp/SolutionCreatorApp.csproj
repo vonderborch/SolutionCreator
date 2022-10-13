@@ -15,24 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Templates\Velentr.BASE.zip" />
-    <None Remove="Templates\Velentr.BASE_DUAL_SUPPORT.zip" />
-    <None Remove="Templates\Velentr.GENERIC_DUAL_SUPPORT.zip" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Templates\Velentr.BASE.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Velentr.BASE_DUAL_SUPPORT.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Templates\Velentr.GENERIC_DUAL_SUPPORT.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="2.0.1" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="6.0.0" />
   </ItemGroup>

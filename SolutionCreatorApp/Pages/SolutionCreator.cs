@@ -58,12 +58,19 @@ namespace SolutionCreatorApp.Pages
             this._groupedControls.Add(Area.Output, new List<Control> {this.copyInstructions_btn, this.copyCommands_btn, this.goToDirectory_btn, this.instructions_txt, this.commands_txt});
 
             // refresh
+            Constants.Instance.MainApp.LoadTemplates();
             RefreshTemplatesList(true);
+            Constants.Instance.MainApp.TemplatesRefreshed += RefreshTemplatesList;
         }
 
         private Template SelectedTemplate => this.templates_lst.SelectedIndex == -1 ? null : this._templateCore.Templates[(string) this.templates_lst.SelectedItem];
 
-        public void RefreshTemplatesList(bool firstRun = false)
+        public void RefreshTemplatesList()
+        {
+            RefreshTemplatesList(false);
+        }
+
+        public void RefreshTemplatesList(bool firstRun)
         {
             if (!this._actionGuard)
             {

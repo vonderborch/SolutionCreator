@@ -26,5 +26,15 @@
         ///     (Immutable) the command prompt.
         /// </summary>
         public static string CommandPrompt = "CMD.exe";
+
+        /// <summary>
+        ///     Name of the templates repo.
+        /// </summary>
+        public static string TemplatesRepoName = "SolutionCreator-Templates";
+
+        /// <summary>
+        ///     Name of the templates owner.
+        /// </summary>
+        public static string TemplatesOwnerName = "vonderborch";
     }
 }
