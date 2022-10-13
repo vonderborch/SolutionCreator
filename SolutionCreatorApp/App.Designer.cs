@@ -31,14 +31,20 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAccessTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setPasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAccessTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.reportIssueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.templates_txt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.status_txt = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.status_txt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.templatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -47,10 +53,12 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.templatesToolStripMenuItem,
+            this.gitToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(949, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1105, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -65,9 +73,40 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // gitToolStripMenuItem
+            // 
+            this.gitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.setAccessTokenToolStripMenuItem,
+            this.setPasswordToolStripMenuItem,
+            this.clearAccessTokenToolStripMenuItem});
+            this.gitToolStripMenuItem.Name = "gitToolStripMenuItem";
+            this.gitToolStripMenuItem.Size = new System.Drawing.Size(34, 20);
+            this.gitToolStripMenuItem.Text = "Git";
+            // 
+            // setAccessTokenToolStripMenuItem
+            // 
+            this.setAccessTokenToolStripMenuItem.Name = "setAccessTokenToolStripMenuItem";
+            this.setAccessTokenToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.setAccessTokenToolStripMenuItem.Text = "Set Username";
+            this.setAccessTokenToolStripMenuItem.Click += new System.EventHandler(this.setAccessTokenToolStripMenuItem_Click);
+            // 
+            // setPasswordToolStripMenuItem
+            // 
+            this.setPasswordToolStripMenuItem.Name = "setPasswordToolStripMenuItem";
+            this.setPasswordToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.setPasswordToolStripMenuItem.Text = "Set Password";
+            this.setPasswordToolStripMenuItem.Click += new System.EventHandler(this.setPasswordToolStripMenuItem_Click);
+            // 
+            // clearAccessTokenToolStripMenuItem
+            // 
+            this.clearAccessTokenToolStripMenuItem.Name = "clearAccessTokenToolStripMenuItem";
+            this.clearAccessTokenToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.clearAccessTokenToolStripMenuItem.Text = "Clear Credentials";
+            this.clearAccessTokenToolStripMenuItem.Click += new System.EventHandler(this.clearAccessTokenToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -106,9 +145,9 @@
             this.templates_txt,
             this.toolStripStatusLabel1,
             this.status_txt});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 673);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 684);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(949, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1105, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -118,23 +157,38 @@
             this.templates_txt.Size = new System.Drawing.Size(118, 17);
             this.templates_txt.Text = "toolStripStatusLabel1";
             // 
-            // status_txt
-            // 
-            this.status_txt.Name = "status_txt";
-            this.status_txt.Size = new System.Drawing.Size(118, 17);
-            this.status_txt.Text = "toolStripStatusLabel1";
-            // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabel1.Text = "|";
             // 
+            // status_txt
+            // 
+            this.status_txt.Name = "status_txt";
+            this.status_txt.Size = new System.Drawing.Size(118, 17);
+            this.status_txt.Text = "toolStripStatusLabel1";
+            // 
+            // templatesToolStripMenuItem
+            // 
+            this.templatesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForUpdatesToolStripMenuItem1});
+            this.templatesToolStripMenuItem.Name = "templatesToolStripMenuItem";
+            this.templatesToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.templatesToolStripMenuItem.Text = "Templates";
+            // 
+            // checkForUpdatesToolStripMenuItem1
+            // 
+            this.checkForUpdatesToolStripMenuItem1.Name = "checkForUpdatesToolStripMenuItem1";
+            this.checkForUpdatesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.checkForUpdatesToolStripMenuItem1.Text = "Check for Updates";
+            this.checkForUpdatesToolStripMenuItem1.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem1_Click);
+            // 
             // App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(949, 695);
+            this.ClientSize = new System.Drawing.Size(1105, 706);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
@@ -164,5 +218,11 @@
         private ToolStripStatusLabel templates_txt;
         private ToolStripStatusLabel status_txt;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripMenuItem gitToolStripMenuItem;
+        private ToolStripMenuItem setAccessTokenToolStripMenuItem;
+        private ToolStripMenuItem clearAccessTokenToolStripMenuItem;
+        private ToolStripMenuItem setPasswordToolStripMenuItem;
+        private ToolStripMenuItem templatesToolStripMenuItem;
+        private ToolStripMenuItem checkForUpdatesToolStripMenuItem1;
     }
 }

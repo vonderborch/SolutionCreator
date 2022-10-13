@@ -6,21 +6,36 @@ The latest release is available on the releases page: https://github.com/vonderb
 
 # Execution
 One means of running this program are currently available:
+[Full documentation will be available eventually :)](https://github.com/vonderborch/SolutionCreator/issues/3)
 
 ## App
-Start up the executable and walk through the steps to create a solution
+Start up the executable and walk through the UI to create a solution. 
 
 ## Command Prompt/Terminal Version
-Coming soon maybe?
+- Creating a new Solution: `./SolutionCreator.exe new-solution`
+    - Available Parameters: `./SolutionCreator.exe help new-solution`
+- List Available Templates: `./SolutionCreator.exe list-templates`
+    - Available Parameters: `./SolutionCreator.exe help -templates`
+- Update or Download New Templates: `./SolutionCreator.exe update-templates`
+    - Available Parameters: `./SolutionCreator.exe help update-templates`
+- Update/set Git Settings: `./SolutionCreator.exe git-settings myusername mypassword`
+    - Available Parameters: `./SolutionCreator.exe help git-settings`
+    - NOTE: Right now the code saves this data in a plaintext. This is not good, but [at some point I hope to rework it to be better](https://github.com/vonderborch/SolutionCreator/issues/12).
+- Check for App Updates: `./SolutionCreator.exe update`
+    - Available Parameters: `./SolutionCreator.exe help update`
+- Report an Issue: `./SolutionCreator.exe report-issue`
+    - Available Parameters: `./SolutionCreator.exe help report-issue`
+- Get Help: `./SolutionCreator.exe help`
+- Display Current Version: `./SolutionCreator.exe version`
 
 # Existing Templates
-I've created some templates that are packaged with the program. The three currently available were all meant to help me with standardizing repo structure with my Velentr.X libraries.
+The application will automatically download templates from the [Template Repository](https://github.com/vonderborch/SolutionCreator-Templates). Currently available templates are:
 - Velentr.BASE: A simple library that isn't tied to anything XNA related
 - Velentr.BASE_DUAL_SUPPORT: A library that has two different implementations: one for FNA and one for Monogame
 - Velentr.GENERIC_DUAL_SUPPORT: A library that has one generic implementation (not tied to FNA or Monogame) and then either extensions or custom implementations for FNA and Monogame
 
 # Creating a New Template
-Coming Soon!
+[Built-in Coming Soon!](https://github.com/vonderborch/SolutionCreator/issues/7)
 
 For now take a look at how the existing templates are structured (these were functional libraries originally with pretty much everything stripped and then lots of changes in the .csproj and .sln files!)
 

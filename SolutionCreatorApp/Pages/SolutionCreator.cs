@@ -4,6 +4,8 @@ using System.Text;
 
 using SolutionCreator.Core;
 
+using SolutionCreatorApp.Properties;
+
 namespace SolutionCreatorApp.Pages
 {
     public partial class SolutionCreator : Form
@@ -16,10 +18,15 @@ namespace SolutionCreatorApp.Pages
         private string _currentUserFullName;
 
         private Dictionary<string, string> _replacementText = new();
+        private FileConflictMode _repoFileConflictMode = FileConflictMode.Override;
+
+        private GitRepoMode _repoMode = GitRepoMode.NoRepo;
 
         public SolutionCreator()
         {
             InitializeComponent();
+
+            // defaults
             this._templateCore = new Core();
             this._actionGuard = false;
 
@@ -41,18 +48,29 @@ namespace SolutionCreatorApp.Pages
                                         , this.generate_btn
                                         , this.reset_btn
                                         , this.browse_btn
+                                        , this.gitSetting_lst
+                                        , this.gitExistingRepo_lst
+                                        , this.gitRepoName_txt
+                                        , this.gitPrivate_cxb
                                       }
                                      );
 
             this._groupedControls.Add(Area.Output, new List<Control> {this.copyInstructions_btn, this.copyCommands_btn, this.goToDirectory_btn, this.instructions_txt, this.commands_txt});
 
             // refresh
+            Constants.Instance.MainApp.LoadTemplates();
             RefreshTemplatesList(true);
+            Constants.Instance.MainApp.TemplatesRefreshed += RefreshTemplatesList;
         }
 
         private Template SelectedTemplate => this.templates_lst.SelectedIndex == -1 ? null : this._templateCore.Templates[(string) this.templates_lst.SelectedItem];
 
-        public void RefreshTemplatesList(bool firstRun = false)
+        public void RefreshTemplatesList()
+        {
+            RefreshTemplatesList(false);
+        }
+
+        public void RefreshTemplatesList(bool firstRun)
         {
             if (!this._actionGuard)
             {
@@ -121,6 +139,7 @@ namespace SolutionCreatorApp.Pages
             this._replacementText.Clear();
 
             ClearAndEnable(this._groupedControls[Area.Config], true);
+            this.gitPrivate_cxb.Checked = false;
 
             ResetSolutionOutput();
         }
@@ -137,6 +156,10 @@ namespace SolutionCreatorApp.Pages
                 if (controls[i] is TextBox)
                 {
                     UpdateTextBox((TextBox) controls[i], string.Empty);
+                }
+                else if (controls[i] is ComboBox)
+                {
+                    ((ComboBox) controls[i]).SelectedIndex = 0;
                 }
 
                 controls[i].Enabled = enable;
@@ -247,6 +270,15 @@ namespace SolutionCreatorApp.Pages
                                                   , this.nugetDescription_txt.Text
                                                   , this.nugetLicense_txt.Text
                                                   , this.nugetTags_txt.Text
+                                                  , this._repoFileConflictMode
+                                                  , new GitSettings(
+                                                                    this.gitRepoName_txt.Text
+                                                                  , Settings.Default.User
+                                                                  , Settings.Default.User
+                                                                  , Settings.Default.Password
+                                                                  , this.gitPrivate_cxb.Checked
+                                                                  , this._repoMode
+                                                                   )
                                                    );
 
                 var solution = new Solution(selectedTemplate, settings, UpdateOutputLog, UpdateInstructionsText, UpdateCommandsText);
@@ -397,6 +429,63 @@ namespace SolutionCreatorApp.Pages
 
                     this.solution_txt.Text = this.SelectedTemplate.DefaultNameFormat.Replace(Constants.CoreSpecialTextParentDir, Path.GetFileNameWithoutExtension(dialog.SelectedPath));
                 }
+            }
+        }
+
+        private void gitSetting_lst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.gitSetting_lst.Text)
+            {
+                case "No Repo":
+                    this._repoMode = GitRepoMode.NoRepo;
+                    this.gitRepoName_txt.Enabled = false;
+                    this.gitExistingRepo_lst.Enabled = false;
+
+                    break;
+
+                case "New Repo, Only Init":
+                    this._repoMode = GitRepoMode.NewRepoOnlyInit;
+                    this.gitRepoName_txt.Enabled = true;
+                    this.gitExistingRepo_lst.Enabled = false;
+
+                    break;
+
+                case "New Repo, Full":
+                    this._repoMode = GitRepoMode.NewRepoFull;
+                    this.gitRepoName_txt.Enabled = true;
+                    this.gitExistingRepo_lst.Enabled = false;
+
+                    break;
+
+                case "Existing Repo, Clean Slate":
+                    this._repoMode = GitRepoMode.ExistingRepoCleanSlate;
+                    this.gitRepoName_txt.Enabled = true;
+                    this.gitExistingRepo_lst.Enabled = true;
+
+                    break;
+
+                case "Existing Repo, Keep Existing Code":
+                    this._repoMode = GitRepoMode.ExistingRepoKeepExistingCode;
+                    this.gitRepoName_txt.Enabled = true;
+                    this.gitExistingRepo_lst.Enabled = true;
+
+                    break;
+            }
+        }
+
+        private void gitExistingRepo_lst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (this.gitExistingRepo_lst.Text)
+            {
+                case "Keep Only New File (Override)":
+                    this._repoFileConflictMode = FileConflictMode.Override;
+
+                    break;
+
+                case "Keep Only Old File":
+                    this._repoFileConflictMode = FileConflictMode.KeepOld;
+
+                    break;
             }
         }
 
