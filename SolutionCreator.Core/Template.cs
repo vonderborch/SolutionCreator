@@ -33,7 +33,7 @@ namespace SolutionCreator.Core
         public string FileNameNoExtension = string.Empty;
         public string FilePath = string.Empty;
 
-        public int Guids = 99;
+        public int Guids = 0;
         public List<string> Instructions = new();
 
         public string Name = string.Empty;
@@ -41,10 +41,14 @@ namespace SolutionCreator.Core
 
         public List<string> RenameOnlyDirectories = new();
         public List<string> RenameOnlyFiles = new();
-        public Dictionary<string, string> ReplaceText;
+
+        public Dictionary<string, string> ReplaceText = new();
+
         public string TemplateAuthor = "No Author Provided";
 
         public string TemplateVersion = string.Empty;
+
+        public Template() { }
 
         public Template(string filePath)
         {
@@ -93,6 +97,20 @@ namespace SolutionCreator.Core
                         }
                     }
                 }
+            }
+        }
+
+        public void PopulateFromTemplateInfoFile(string filePath)
+        {
+            JsonConvert.PopulateObject(File.ReadAllText(filePath), this);
+            if (string.IsNullOrWhiteSpace(this.DefaultName))
+            {
+                this.DefaultName = this.Name;
+            }
+
+            if (!this.ReplaceText.ContainsKey(this.Name))
+            {
+                this.ReplaceText.Add(this.Name, Constants.SpecialTextProjectName);
             }
         }
 
