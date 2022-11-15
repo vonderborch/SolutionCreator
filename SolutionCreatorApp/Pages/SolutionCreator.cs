@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.DirectoryServices.AccountManagement;
 using System.Text;
 
 using SolutionCreator.Core;
@@ -25,12 +24,21 @@ namespace SolutionCreatorApp.Pages
         public SolutionCreator()
         {
             InitializeComponent();
+            this._templateCore = new Core();
+            Refresh();
+        }
+
+        private Template SelectedTemplate => this.templates_lst.SelectedIndex == -1 ? null : this._templateCore.Templates[(string) this.templates_lst.SelectedItem];
+
+        public override void Refresh()
+        {
+            base.Refresh();
 
             // defaults
-            this._templateCore = new Core();
             this._actionGuard = false;
 
             // group controls
+            this._groupedControls.Clear();
             this._groupedControls.Add(Area.Info, new List<Control> {this.templateName_txt, this.templateAuthor_txt, this.templateVersion_txt, this.templateDescription_txt});
             this._groupedControls.Add(
                                       Area.Config
@@ -61,9 +69,8 @@ namespace SolutionCreatorApp.Pages
             Constants.Instance.MainApp.LoadTemplates();
             RefreshTemplatesList(true);
             Constants.Instance.MainApp.TemplatesRefreshed += RefreshTemplatesList;
+            Constants.Instance.MainApp.EnablePageSwitching();
         }
-
-        private Template SelectedTemplate => this.templates_lst.SelectedIndex == -1 ? null : this._templateCore.Templates[(string) this.templates_lst.SelectedItem];
 
         public void RefreshTemplatesList()
         {
@@ -100,23 +107,18 @@ namespace SolutionCreatorApp.Pages
 
                 Constants.Instance.MainApp.UpdateTemplatesText($"Available Templates: {this._templateCore.Templates.Count}");
 
-                if (firstRun)
-                {
-                    // we only want to do this once if we can!
-                    Task.Run(
-                             () =>
+                Task.Run(
+                         () =>
+                         {
+                             while (string.IsNullOrWhiteSpace(Constants.Instance.MainApp.CurrentUserName))
                              {
-                                 Constants.Instance.MainApp.UpdateStatusText("Fetching user display name...");
-                                 this._currentUserFullName = UserPrincipal.Current.DisplayName;
-                                 Invoke(EnableFirstRun);
-                                 Constants.Instance.MainApp.UpdateStatusText("User display name fetched!");
+                                 Thread.Sleep(250);
                              }
-                            );
-                }
-                else
-                {
-                    this.solutionTemplates_box.Enabled = true;
-                }
+
+                             this._currentUserFullName = Constants.Instance.MainApp.CurrentUserName;
+                             Invoke(EnableFirstRun);
+                         }
+                        );
 
                 this._actionGuard = false;
             }
@@ -131,6 +133,7 @@ namespace SolutionCreatorApp.Pages
         public void EnableFirstRun()
         {
             this.solutionTemplates_box.Enabled = true;
+            Constants.Instance.MainApp.EnablePageSwitching();
         }
 
         public void ResetSolutionConfig()

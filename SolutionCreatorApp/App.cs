@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.DirectoryServices.AccountManagement;
 using System.Reflection;
 
 using Microsoft.VisualBasic;
@@ -15,6 +16,7 @@ namespace SolutionCreatorApp
     public partial class App : Form
     {
         private readonly Dictionary<Page, Form> _pages = new();
+        private bool _pageSwitchingAllowed = true;
 
         public App()
         {
@@ -30,7 +32,10 @@ namespace SolutionCreatorApp
             // Create the pages...
             this.DefaultPage = Page.SolutionCreator;
             this._pages.Add(Page.SolutionCreator, new Pages.SolutionCreator());
+            this._pages.Add(Page.TemplateGenerator, new TemplateGenerator());
         }
+
+        public string CurrentUserName { get; set; }
 
         private Page CurrentPage { get; set; } = Page.None;
 
@@ -46,7 +51,22 @@ namespace SolutionCreatorApp
                 page.Value.Dock = DockStyle.Fill;
             }
 
+            Task.Run(
+                     () =>
+                     {
+                         Constants.Instance.MainApp.UpdateStatusText("Fetching user display name...");
+                         this.CurrentUserName = UserPrincipal.Current.DisplayName;
+                         Invoke(EnableFirstRun);
+                         Constants.Instance.MainApp.UpdateStatusText("User display name fetched!");
+                     }
+                    );
+
             ChangePage(this.DefaultPage);
+        }
+
+        public void EnableFirstRun()
+        {
+            EnablePageSwitching();
         }
 
         public void UpdateTemplatesText(string text)
@@ -59,15 +79,63 @@ namespace SolutionCreatorApp
             this.status_txt.Text = text;
         }
 
+        public void EnablePageSwitching()
+        {
+            this._pageSwitchingAllowed = true;
+            this.templateGeneratorToolStripMenuItem.Enabled = true;
+            this.generateSolutionToolStripMenuItem.Enabled = true;
+        }
+
         private void ChangePage(Page newPage)
         {
-            if (this.CurrentPage != Page.None)
+            if (this._pageSwitchingAllowed)
             {
-                this._pages[this.CurrentPage].Close();
-            }
+                this.templateGeneratorToolStripMenuItem.Enabled = false;
+                this.generateSolutionToolStripMenuItem.Enabled = false;
+                this._pageSwitchingAllowed = false;
+                if (this.CurrentPage != Page.None)
+                {
+                    this._pages[this.CurrentPage].Close();
+                }
 
-            this._pages[newPage].Show();
-            this.CurrentPage = newPage;
+                switch (newPage)
+                {
+                    case Page.SolutionCreator:
+                        this.templateGeneratorToolStripMenuItem.Visible = true;
+                        this.generateSolutionToolStripMenuItem.Visible = false;
+
+                        break;
+
+                    case Page.TemplateGenerator:
+                        this.templateGeneratorToolStripMenuItem.Visible = false;
+                        this.generateSolutionToolStripMenuItem.Visible = true;
+                        Task.Run(
+                                 () =>
+                                 {
+                                     Thread.Sleep(500);
+                                     Invoke(Constants.Instance.MainApp.EnablePageSwitching);
+                                 }
+                                );
+
+                        break;
+
+                    default:
+                        throw new ArgumentException($"Invalid page {newPage.ToString()}!");
+                }
+
+                try
+                {
+                    this._pages[newPage].Show();
+                }
+                catch (Exception ex)
+                {
+                    if (true) { }
+                }
+
+                this.CurrentPage = newPage;
+                this._pages[this.CurrentPage].Visible = true;
+                this._pages[this.CurrentPage].Refresh();
+            }
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -195,6 +263,16 @@ namespace SolutionCreatorApp
                 Interaction.MsgBox($"Unable to pull latest templates! {ex}");
                 UpdateStatusText("Unable to pull latest templates!");
             }
+        }
+
+        private void templateGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePage(Page.TemplateGenerator);
+        }
+
+        private void generateSolutionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangePage(Page.SolutionCreator);
         }
     }
 }

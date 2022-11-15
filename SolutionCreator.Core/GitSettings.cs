@@ -14,7 +14,7 @@ namespace SolutionCreator.Core
 
         public GitRepoMode RepoMode;
 
-        public Credentials Credentials;
+        public Credentials? Credentials;
 
         public bool IsPrivate;
 
@@ -40,7 +40,7 @@ namespace SolutionCreator.Core
             }
             else
             {
-                this.Credentials = new Credentials("");
+                this.Credentials = null;
             }
         }
     }
