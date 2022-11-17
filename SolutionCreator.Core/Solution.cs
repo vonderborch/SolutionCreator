@@ -230,54 +230,61 @@ namespace SolutionCreator.Core
                 {
                     foreach (ZipEntry entry in zip)
                     {
-                        var path = Path.Combine(outputDirectory, entry.Name.Substring(this._template.PathLength)).Replace("/", "\\");
-                        var directoryPath = Path.GetDirectoryName(path);
-                        if (!string.IsNullOrWhiteSpace(path))
+                        try
                         {
-                            if (entry.IsDirectory)
+                            var path = Path.Combine(outputDirectory, entry.Name.Replace("/", "\\"));
+                            var directoryPath = Path.GetDirectoryName(path);
+                            if (!string.IsNullOrWhiteSpace(path))
                             {
-                                Directory.CreateDirectory(path);
-                            }
-                            else
-                            {
-                                if (ExcludedFiles.Contains(Path.GetFileName(entry.Name)))
+                                if (entry.IsDirectory)
                                 {
-                                    continue;
+                                    Directory.CreateDirectory(path);
                                 }
-
-                                if (directoryPath is {Length: > 0})
+                                else
                                 {
-                                    Directory.CreateDirectory(directoryPath);
-                                }
-
-                                var buffer = new byte[4096];
-                                if (File.Exists(path))
-                                {
-                                    switch (fileConflictMode)
+                                    if (ExcludedFiles.Contains(Path.GetFileName(entry.Name)))
                                     {
-                                        case FileConflictMode.Override:
-                                            File.Delete(path);
+                                        continue;
+                                    }
 
-                                            break;
+                                    if (directoryPath is {Length: > 0})
+                                    {
+                                        Directory.CreateDirectory(directoryPath);
+                                    }
 
-                                        case FileConflictMode.KeepOld:
-                                            continue;
+                                    var buffer = new byte[4096];
+                                    if (File.Exists(path))
+                                    {
+                                        switch (fileConflictMode)
+                                        {
+                                            case FileConflictMode.Override:
+                                                File.Delete(path);
+
+                                                break;
+
+                                            case FileConflictMode.KeepOld:
+                                                continue;
+                                        }
+                                    }
+
+                                    if (File.Exists(path))
+                                    {
+                                        File.Delete(path);
+                                    }
+
+                                    using (var inputStream = zip.GetInputStream(entry))
+                                    {
+                                        using (var output = File.Create(path))
+                                        {
+                                            StreamUtils.Copy(inputStream, output, buffer);
+                                        }
                                     }
                                 }
-
-                                if (File.Exists(path))
-                                {
-                                    File.Delete(path);
-                                }
-
-                                using (var inputStream = zip.GetInputStream(entry))
-                                {
-                                    using (var output = File.Create(path))
-                                    {
-                                        StreamUtils.Copy(inputStream, output, buffer);
-                                    }
-                                }
                             }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
                         }
                     }
                 }

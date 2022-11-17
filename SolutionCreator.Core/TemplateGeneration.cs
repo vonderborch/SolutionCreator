@@ -32,6 +32,17 @@ namespace SolutionCreator.Core
           , "Version"
         };
 
+        private static readonly string[] outlawedDirectories =
+        {
+            "bin"
+          , "obj"
+          , ".vs"
+          , ".git"
+          , "fna"
+          , "fnalibs"
+          , "release"
+        };
+
         private readonly string _outputPath;
         private readonly Dictionary<string, string> _projectNameReplacements;
         private readonly string _sourcePath;
@@ -60,8 +71,8 @@ namespace SolutionCreator.Core
             // Step 2 - Copy the old solution over...
             CopyDirectory(this._sourcePath, actualPath);
 
-            // Step 3 - Create the TEMPLATE_INFO.TXT file
-            var templateInfoFile = Path.Combine(actualPath, "TEMPLATE_INFO.TXT");
+            // Step 3 - Create the TEMPLATE_INFO.txt file
+            var templateInfoFile = Path.Combine(actualPath, "TEMPLATE_INFO.txt");
             if (File.Exists(templateInfoFile))
             {
                 File.Delete(templateInfoFile);
@@ -221,8 +232,12 @@ namespace SolutionCreator.Core
             var directories = Directory.GetDirectories(oldPath);
             for (var i = 0; i < directories.Length; i++)
             {
-                var path = Path.Combine(newPath, Path.GetFileName(directories[i]));
-                CopyDirectory(directories[i], path);
+                var dirName = Path.GetFileName(directories[i]);
+                if (!outlawedDirectories.Contains(dirName.ToLowerInvariant()))
+                {
+                    var path = Path.Combine(newPath, dirName);
+                    CopyDirectory(directories[i], path);
+                }
             }
         }
     }

@@ -66,7 +66,7 @@ namespace SolutionCreator.Core
                 {
                     foreach (ZipEntry entry in zip)
                     {
-                        if (Path.GetFileName(entry.Name) == Constants.TemplateInfoFileName)
+                        if (Path.GetFileName(entry.Name).ToUpperInvariant() == Constants.TemplateInfoFileName.ToUpperInvariant())
                         {
                             var contents = "";
                             using (var inputStream = zip.GetInputStream(entry))
@@ -80,6 +80,14 @@ namespace SolutionCreator.Core
                             }
 
                             JsonConvert.PopulateObject(contents, this);
+                            if (string.IsNullOrWhiteSpace(this.FilePath))
+                            {
+                                this.FilePath = filePath;
+                                this.FileName = Path.GetFileName(filePath);
+                                this.FileNameNoExtension = Path.GetFileNameWithoutExtension(filePath);
+                                this.PathLength = this.FileNameNoExtension.Length + 1;
+                            }
+
                             if (string.IsNullOrWhiteSpace(this.DefaultName))
                             {
                                 this.DefaultName = this.Name;

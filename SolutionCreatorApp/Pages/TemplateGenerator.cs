@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 
+using Newtonsoft.Json;
+
 using SolutionCreator.Core;
 
 namespace SolutionCreatorApp.Pages
@@ -200,6 +202,16 @@ namespace SolutionCreatorApp.Pages
             // Generate a new Template Zip
             var generator = new TemplateGeneration(templateInfo, this.outputPath_txt.Text, CleanedTrimmedDict(this.projectNameReplacements_txt.Text), this.directory_txt.Text);
             generator.GenerateTemplate(this.deleteWorkingDir_cxb.Checked);
+
+            // Update the TemplateInfo file in the directory...
+            var templateInfoFile = Path.Combine(this._solutionDirectory, "TEMPLATE_INFO.txt");
+            if (File.Exists(templateInfoFile))
+            {
+                File.Delete(templateInfoFile);
+            }
+
+            var template = JsonConvert.SerializeObject(templateInfo, Formatting.Indented);
+            File.WriteAllText(templateInfoFile, template);
 
             // Enable the GoToDirectory button
             this.goToDirectory_btn.Enabled = true;
