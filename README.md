@@ -1,3 +1,6 @@
+# Deprecated
+Please use https://github.com/vonderborch/Templater instead!
+
 # SolutionCreator
 Wanting to make a template from a project but frustrated at Visual Studio for making creating templates from complex solutions complicated (especially once you start trying to add custom logic to things...)? So was I. This isn't a perfect solution, but it at least makes things easier!
 
